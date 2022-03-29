@@ -1,7 +1,7 @@
 # Made by Floppy#6269
 import os
 from PyPDF2 import PdfFileReader, PdfFileWriter
-from pdf2image import convert_from_path
+import fitz
 import math
 
 def pdf_splitter(path):
@@ -21,10 +21,12 @@ def pdf_splitter(path):
     pass
 
 def img(path):
-    images = convert_from_path(path)
-    for page in images:
-        page.save('file.jpg', 'JPEG')
-        print("Image Created !") 
+    pdffile = path
+    doc = fitz.open(pdffile)
+    page = doc.loadPage(0)  # number of page
+    pix = page.get_pixmap()
+    output = "file.jpg"
+    pix.save(output) 
     pass
 
 
