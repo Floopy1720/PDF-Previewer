@@ -16,7 +16,7 @@ async def on_message(message):
 
 	if message.attachments:
 		if message.attachments[0].url.endswith('.pdf'):
-			await message.channel.send('Processing The File Please Wait')
+			await message.channel.send('Processing The File Please Wait', delete_after=3)
 			pdf = message.attachments[0].url
 			r = requests.get(pdf, stream = True)
 			with open("file.pdf","wb") as pdf:
@@ -26,7 +26,6 @@ async def on_message(message):
 			path = "file.pdf"
 			pdf_splitter(path)
 			img("file_done.pdf")
-			await message.channel.purge(limit=1)
 			#await message.channel.send(file=discord.File('file.jpg'))
 			name = message.attachments[0].url
 			name = name[77:]
@@ -42,4 +41,4 @@ async def on_message(message):
 			await message.channel.send(file= image,embed=embed)
 
 
-client.run('Your Token')
+client.run('Paste Your Token')
